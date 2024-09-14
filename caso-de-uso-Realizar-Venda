@@ -1,0 +1,106 @@
+# Casos de Uso
+
+## UC01: Realizar Venda
+
+### Ator(es):
+
+- Cliente
+- Funcionário do caixa
+- Operadora de pagamento
+
+### Interessado(s) e interesse(s):
+
+- **Cliente**: deseja pagar pelos produtos de maneira rápida e segura.
+- **Funcionário do caixa**: quer registrar a venda e receber o pagamento de maneira eficiente.
+- **Gerente da loja**: espera que as vendas sejam corretamente registradas e que os relatórios de vendas sejam atualizados.
+- **Operadora de pagamento**: processa o pagamento e garante a transação.
+
+### Pré-condições:
+
+- O cliente deve ter selecionado produtos e estar na fila de pagamento.
+- O sistema deve estar em operação, com acesso às formas de pagamento configuradas e aos produtos atualizados no sistema.
+- O funcionário deve estar autenticado no sistema.
+
+### Pós-condições:
+
+- A venda é registrada no sistema.
+- O estoque dos produtos vendidos é atualizado.
+- Um comprovante de venda é gerado e entregue ao cliente.
+- O pagamento é registrado e aprovado pela operadora de pagamentos.
+
+### Questões em aberto:
+
+- O sistema deve permitir a inclusão de um programa de fidelidade ou cupom de desconto?
+- Como serão tratadas as situações de pagamento parcial com mais de uma forma de pagamento?
+
+### Fluxo Principal:
+
+1. O cliente escolhe os produtos e leva ao caixa.
+2. [IN] O funcionário escaneia ou insere manualmente os itens no sistema.
+3. [OUT] O sistema exibe a lista dos produtos e o valor total da compra.
+4. [IN] O funcionário confirma o valor total e pergunta ao cliente sobre a forma de pagamento.
+5. [OUT] O sistema exibe as formas de pagamento disponíveis:  
+   5.1. Dinheiro  
+   5.2. Cartão de débito  
+   5.3. Cartão de crédito  
+   5.4. Pix  
+   5.5. Vale refeição  
+6. [IN] O cliente escolhe a forma de pagamento e realiza a transação:  
+   6.1. Pagamento com dinheiro  
+   6.2. Pagamento com cartão de débito  
+   6.3. Pagamento com cartão de crédito  
+   6.4. Pagamento com Pix  
+   6.5. Pagamento com vale refeição  
+7. [OUT] O funcionário confirma o pagamento, o sistema finaliza a venda e gera o comprovante de pagamento.
+8. [IN] O funcionário entrega o comprovante ao cliente e, se necessário, o troco.
+
+### Variantes:
+
+**6.1 Pagamento com dinheiro**  
+6.1.1. O cliente entrega o valor em dinheiro ao funcionário.  
+6.1.2. O funcionário insere o valor recebido no sistema.  
+6.1.3. O sistema calcula e exibe o troco.  
+6.1.4. O funcionário entrega o troco ao cliente, se houver.  
+6.1.5. O sistema finaliza a venda e gera o comprovante.
+
+**6.2. Pagamento com cartão de débito**  
+6.2.1. O cliente insere o cartão na máquina ou aproxima para pagamento por NFC.  
+6.2.2. O sistema envia os dados do cartão para a operadora de pagamentos.  
+6.2.3. A operadora autoriza o pagamento.  
+6.2.4. O sistema registra o pagamento e finaliza a venda.
+
+**6.3. Pagamento com cartão de crédito**  
+6.3.1. O cliente insere o cartão ou aproxima para pagamento por NFC.  
+6.3.2. O sistema exibe as opções de parcelamento (se aplicável).  
+6.3.3. O cliente escolhe a opção de parcelamento.  
+6.3.4. O sistema envia os dados para a operadora de cartões.  
+6.3.5. A operadora autoriza o pagamento.  
+6.3.6. O sistema registra o pagamento e finaliza a venda.
+
+**6.4. Pagamento com Pix**  
+6.4.1. O sistema gera um QR code ou chave Pix para o pagamento.  
+6.4.2. O cliente realiza o pagamento através do aplicativo bancário.  
+6.4.3. A operadora de pagamento confirma o recebimento.  
+6.4.4. O sistema registra o pagamento e finaliza a venda.
+
+**6.5. Pagamento com vale refeição**  
+6.5.1. O cliente insere o cartão de vale refeição na máquina ou aproxima para pagamento por NFC.  
+6.5.2. O sistema envia os dados do cartão para a operadora de pagamentos.  
+6.5.3. A operadora autoriza o pagamento.  
+6.5.4. O sistema registra o pagamento e finaliza a venda.
+
+### Exceções:
+
+**E1. Produto não registrado no sistema**  
+- O funcionário tenta registrar um item não cadastrado.  
+- [OUT] O sistema exibe uma mensagem de erro.  
+- O funcionário deve comunicar ao cliente e proceder conforme as políticas da loja (por exemplo, verificar o cadastro do produto ou cancelar a venda).
+
+**E2. Falha na autorização do pagamento (qualquer método de pagamento)**  
+- O sistema não recebe autorização da operadora de pagamento.  
+- [OUT] O sistema exibe uma mensagem de erro para o funcionário.  
+- O funcionário informa ao cliente e solicita outra forma de pagamento.
+
+**E3. Falta de troco para pagamento em dinheiro**  
+- O sistema exibe uma mensagem ao funcionário, informando que não há troco suficiente.  
+- O funcionário informa o cliente e sugere uma alternativa, como completar o pagamento por outra forma.
